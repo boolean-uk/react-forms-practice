@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./App.css";
+import InputField from "./components/InputField";
+import RadioButton from "./components/RadioButton";
 
 export default function App() {
   
@@ -33,23 +35,26 @@ export default function App() {
       <form className="form" onSubmit={handleSubmit}>
         <h2>Complaining form!</h2>
         <div className="form__section-left">
-          <label>
-            Full name
-            <input type="text" name="name" required value={formData.name} onChange={handleChange} />
-          </label>
-          <label>
-            Address
-            <input type="text" name="address" value={formData.address} onChange={handleChange} />
-          </label>
-          <label>
-            Phone Number
-            <input type="tel" name="phone" value={formData.phone} onChange={handleChange}/>
-          </label>
-
-          <label>
-            Email
-            <input type="email" name="email" value={formData.email} onChange={handleChange}/>
-          </label>
+          <InputField
+            labelName={"Full name"}
+            type="text" name="name" isRequired={true}
+            value={formData.name} handleChange={handleChange}
+          />
+          <InputField
+            labelName={"Address"}
+            type="text" name="address" /*isRequired={false}*/
+            value={formData.address} handleChange={handleChange}
+          />
+          <InputField
+            labelName={"Phone Number"}
+            type="tel" name="phone" /*isRequired={false}*/
+            value={formData.phone} handleChange={handleChange}
+          />
+          <InputField
+            labelName={"Email"}
+            type="email" name="email" /*isRequired={false}*/
+            value={formData.email} handleChange={handleChange}
+          />
         </div>
 
         <div className="form__section-right">
@@ -66,25 +71,30 @@ export default function App() {
 
           <div className="form__radio-group">
             <p>How do you want to be contacted? </p>
-            <label>
-              <input type="radio" name="contact" value="phone" onChange={handleChange} checked={formData.contact === "phone"} />
-              Phone
-            </label>
-
-            <label>
-              <input type="radio" name="contact" value="email" onChange={handleChange} checked={formData.contact === "email"} />
-              Email
-            </label>
-
-            <label>
-              <input type="radio" name="contact" value="post" onChange={handleChange} checked={formData.contact === "post"} />
-              Slow Mail
-            </label>
-
-            <label>
-              <input type="radio" name="contact" value="none" onChange={handleChange} checked={formData.contact === "none"} />
-              No contact!
-            </label>
+            <RadioButton
+              name="contact" value="phone"
+              handleChange={handleChange}
+              isChecked={formData.contact === "phone"}
+              message="Phone"
+            />
+            <RadioButton
+              name="contact" value="email"
+              handleChange={handleChange}
+              isChecked={formData.contact === "email"}
+              message="Email"
+            />
+            <RadioButton
+              name="contact" value="post"
+              handleChange={handleChange}
+              isChecked={formData.contact === "post"}
+              message="Slow Mail"
+            />
+            <RadioButton
+              name="contact" value="none"
+              handleChange={handleChange}
+              isChecked={formData.contact === "none"}
+              message="No contact!"
+            />
           </div>
 
           <label>
