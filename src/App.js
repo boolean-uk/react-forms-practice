@@ -18,7 +18,7 @@ export default function App() {
   });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     setData({
       ...data,
       [name]: value,
@@ -26,6 +26,7 @@ export default function App() {
   };
 
   const handleSubmit = (event) => {
+
     event.preventDefault();
     console.log(data);
   };
