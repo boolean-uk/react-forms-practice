@@ -3,46 +3,29 @@ import "./App.css";
 
 export default function App() {
   
-  //TODO: Add your state fields here
-  const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
-  const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
-  const [complaint, setComplaint] = useState('')
-  const [contact, setContact] = useState('')
-  const [consent, setConsent] = useState('')
+  // Add your state fields here
+  const [formData, setFormData] = useState({
+    name: '',
+    address: '',
+    phone: '',
+    email: '',
+    complaint: '',
+    contact: '',
+    consent: false
+  })
 
-  const handleName = (event) => {
-    setName(event.target.value)
-  }
-
-  const handleAddress = (event) => {
-    setAddress(event.target.value)
-  }
-
-  const handlePhone = (event) => {
-    setPhone(event.target.value)
-  }
-
-  const handleEmail = (event) => {
-    setEmail(event.target.value)
-  }
-
-  const handleComplaint = (event) => {
-    setComplaint(event.target.value)
-  }
-
-  const handleContact = (event) => {
-    setContact(event.target.value)
-  }
-
-  const handleConsent = (event) => {
-    setConsent(event.target.value)
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target
+    const data = type === "checkbox" ? checked : value
+    setFormData({
+      ...formData,
+      [name]: data
+    })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(name, address, phone, email, complaint, contact, consent)
+    console.log(formData)
   }
 
   return (
@@ -52,20 +35,20 @@ export default function App() {
         <div className="form__section-left">
           <label>
             Full name
-            <input type="text" name="name" required value={name} onChange={handleName} />
+            <input type="text" name="name" required value={formData.name} onChange={handleChange} />
           </label>
           <label>
             Address
-            <input type="text" name="address" value={address} onChange={handleAddress} />
+            <input type="text" name="address" value={formData.address} onChange={handleChange} />
           </label>
           <label>
             Phone Number
-            <input type="tel" name="phone" value={phone} onChange={handlePhone}/>
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange}/>
           </label>
 
           <label>
             Email
-            <input type="email" name="email" value={email} onChange={handleEmail}/>
+            <input type="email" name="email" value={formData.email} onChange={handleChange}/>
           </label>
         </div>
 
@@ -76,37 +59,37 @@ export default function App() {
               name="complaint"
               rows="10"
               placeholder="You can complain here"
-              value={complaint}
-              onChange={handleComplaint}
+              value={formData.complaint}
+              onChange={handleChange}
             ></textarea>
           </label>
 
           <div className="form__radio-group">
             <p>How do you want to be contacted? </p>
             <label>
-              <input type="radio" name="contact" value="phone" onChange={handleContact} checked={contact === "phone"} />
+              <input type="radio" name="contact" value="phone" onChange={handleChange} checked={formData.contact === "phone"} />
               Phone
             </label>
 
             <label>
-              <input type="radio" name="contact" value="email" onChange={handleContact} checked={contact === "email"} />
+              <input type="radio" name="contact" value="email" onChange={handleChange} checked={formData.contact === "email"} />
               Email
             </label>
 
             <label>
-              <input type="radio" name="contact" value="post" onChange={handleContact} checked={contact === "post"} />
+              <input type="radio" name="contact" value="post" onChange={handleChange} checked={formData.contact === "post"} />
               Slow Mail
             </label>
 
             <label>
-              <input type="radio" name="contact" value="none" onChange={handleContact} checked={contact === "none"} />
+              <input type="radio" name="contact" value="none" onChange={handleChange} checked={formData.contact === "none"} />
               No contact!
             </label>
           </div>
 
           <label>
             I agree you take my data, and do whatever
-            <input type="checkbox" name="consent" id="consent" onChange={handleConsent} checked={consent} />
+            <input type="checkbox" name="consent" id="consent" onChange={handleChange} checked={formData.consent} />
           </label>
         </div>
         <input type="submit" value="Submit!" />
