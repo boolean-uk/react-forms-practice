@@ -1,71 +1,48 @@
 import { useState } from "react";
 import "./App.css";
+import InputFields from "./InputFields";
+import Complaints from "./Compaints";
+import Contact from "./Contact";
+import Consent from "./Consent";
 
 export default function App() {
-  
   //TODO: Add your state fields here
+  const [data, setData] = useState({
+    fullname: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+    complaint: "",
+    contact: "",
+    consent: false,
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(data);
+  };
 
   return (
     <>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h2>Complaining form!</h2>
-        <div className="form__section-left">
-          <label>
-            Full name
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Address
-            <input type="text" name="address" />
-          </label>
-          <label>
-            Phone Number
-            <input type="tel" name="phone" />
-          </label>
 
-          <label>
-            Email
-            <input type="email" name="email" />
-          </label>
-        </div>
+        <InputFields data={data} handleChange={handleChange} />
 
         <div className="form__section-right">
-          <label>
-            Write your complaint
-            <textarea
-              name="complaint"
-              rows="10"
-              placeholder="You can complain here"
-            ></textarea>
-          </label>
+          <Complaints data={data} handleChange={handleChange} />
 
-          <div className="form__radio-group">
-            <p>How do you want to be contacted? </p>
-            <label>
-              <input type="radio" name="contact" value="phone" />
-              Phone
-            </label>
+          <Contact data={data} handleChange={handleChange} />
 
-            <label>
-              <input type="radio" name="contact" value="email" />
-              Email
-            </label>
-
-            <label>
-              <input type="radio" name="contact" value="post" />
-              Slow Mail
-            </label>
-
-            <label>
-              <input type="radio" name="contact" value="none" />
-              No contact!
-            </label>
-          </div>
-
-          <label>
-            I agree you take my data, and do whatever
-            <input type="checkbox" name="consent" id="consent" />
-          </label>
+          <Consent data={data} setData={setData} />
         </div>
         <input type="submit" value="Submit!" />
       </form>
