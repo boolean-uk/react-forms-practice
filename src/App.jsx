@@ -3,24 +3,28 @@ import "./App.css";
 
 export default function App() {
     //TODO: Add your state fields here
-    const [fullName, setFullName] = useState("");
-    const [address, setAddress] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [complaint, setComplaint] = useState("");
-    const [contacted, setContacted] = useState("");
-    const [agree, setAgree] = useState(false);
+    // const [fullName, setFullName] = useState("");
+    // const [address, setAddress] = useState("");
+    // const [phone, setPhone] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [complaint, setComplaint] = useState("");
+    // const [contacted, setContacted] = useState("");
+    // const [agree, setAgree] = useState(false);
+
+    const [data, setData] = useState({
+        fullName: "",
+        address: "",
+        phone: "",
+        email: "",
+        complaint: "",
+        contacted: "",
+        agree: false,
+    });
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        console.log(`Full Name: ${fullName}`);
-        console.log(`Address: ${address}`);
-        console.log(`Phone: ${phone}`);
-        console.log(`Email: ${email}`);
-        console.log(`Complaint: ${complaint}`);
-        console.log(`Contacted: ${contacted}`);
-        console.log(`Agree: ${agree}`);
+        console.log(data);
     };
 
     return (
@@ -33,8 +37,10 @@ export default function App() {
                         <input
                             type="text"
                             name="name"
-                            value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
+                            value={data.fullName}
+                            onChange={(e) =>
+                                setData({ ...data, fullName: e.target.value })
+                            }
                             required
                         />
                     </label>
@@ -43,8 +49,10 @@ export default function App() {
                         <input
                             type="text"
                             name="address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            value={data.address}
+                            onChange={(e) =>
+                                setData({ ...data, address: e.target.value })
+                            }
                         />
                     </label>
                     <label>
@@ -52,8 +60,10 @@ export default function App() {
                         <input
                             type="tel"
                             name="phone"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            value={data.phone}
+                            onChange={(e) =>
+                                setData({ ...data, phone: e.target.value })
+                            }
                         />
                     </label>
 
@@ -62,8 +72,10 @@ export default function App() {
                         <input
                             type="email"
                             name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={data.email}
+                            onChange={(e) =>
+                                setData({ ...data, email: e.target.value })
+                            }
                         />
                     </label>
                 </div>
@@ -75,15 +87,19 @@ export default function App() {
                             name="complaint"
                             rows="10"
                             placeholder="You can complain here"
-                            value={complaint}
-                            onChange={(e) => setComplaint(e.target.value)}
+                            value={data.complaint}
+                            onChange={(e) =>
+                                setData({ ...data, complaint: e.target.value })
+                            }
                         ></textarea>
                     </label>
 
                     <div
                         className="form__radio-group"
-                        onChange={(e) => setContacted(e.target.value)}
-                        value={contacted}
+                        value={data.contacted}
+                        onChange={(e) =>
+                            setData({ ...data, contacted: e.target.value })
+                        }
                     >
                         <p>How do you want to be contacted? </p>
                         <label>
@@ -113,8 +129,10 @@ export default function App() {
                             type="checkbox"
                             name="consent"
                             id="consent"
-                            value={agree}
-                            onChange={() => setAgree(!agree)}
+                            value={data.agree}
+                            onChange={() =>
+                                setData({ ...data, agree: !data.agree })
+                            }
                         />
                     </label>
                 </div>
