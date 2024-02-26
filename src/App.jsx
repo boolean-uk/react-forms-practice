@@ -2,8 +2,25 @@ import { useState } from "react";
 import "./App.css";
 
 export default function App() {
-
   //TODO: Add your state fields here
+  const [fullName, setFullName] = useState("")
+  const [address, setAddress] = useState("")
+  const [phone, setPhone] = useState()
+  const [email, setEmail] = useState("")
+  const [complaint, setComplaint] = useState("")
+  const [contactMethod, setContactMethod] = useState("email")
+  const [consent, setConsent] = useState(false)
+
+  const submitForm = () => {
+    console.log("Submitted complaint form with the following information:")
+    console.log("Full name: "+fullName)
+    console.log("Address: "+address)
+    console.log("Phone number: "+phone)
+    console.log("Email address: "+email)
+    console.log("Complaint: "+complaint)
+    console.log("Contact method: "+contactMethod)
+    console.log("Consents: "+consent)
+  }
 
   return (
     <>
@@ -12,20 +29,20 @@ export default function App() {
         <div className="form__section-left">
           <label>
             Full name
-            <input type="text" name="name" required />
+            <input type="text" name="name" required onChange={(e) => setFullName(e.target.value)}/>
           </label>
           <label>
             Address
-            <input type="text" name="address" />
+            <input type="text" name="address" onChange={(e) => setAddress(e.target.value)}/>
           </label>
           <label>
             Phone Number
-            <input type="tel" name="phone" />
+            <input type="tel" name="phone" onChange={(e) => setPhone(e.target.value)}/>
           </label>
 
           <label>
             Email
-            <input type="email" name="email" />
+            <input type="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
           </label>
         </div>
 
@@ -36,38 +53,39 @@ export default function App() {
               name="complaint"
               rows="10"
               placeholder="You can complain here"
+              onChange={(e) => setComplaint(e.target.value)}
             ></textarea>
           </label>
 
           <div className="form__radio-group">
             <p>How do you want to be contacted? </p>
             <label>
-              <input type="radio" name="contact" value="phone" />
+              <input type="radio" name="contact" value="phone" onChange={() => setContactMethod("phone")}/>
               Phone
             </label>
 
             <label>
-              <input type="radio" name="contact" value="email" />
+              <input type="radio" name="contact" value="email" onChange={() => setContactMethod("email")}/>
               Email
             </label>
 
             <label>
-              <input type="radio" name="contact" value="post" />
+              <input type="radio" name="contact" value="post" onChange={() => setContactMethod("mail")}/>
               Slow Mail
             </label>
 
             <label>
-              <input type="radio" name="contact" value="none" />
+              <input type="radio" name="contact" value="none" onChange={() => setContactMethod("none")}/>
               No contact!
             </label>
           </div>
 
           <label>
             I agree you take my data, and do whatever
-            <input type="checkbox" name="consent" id="consent" />
+            <input type="checkbox" name="consent" id="consent" onChange={() => setConsent(!consent)}/>
           </label>
         </div>
-        <input type="submit" value="Submit!" />
+        <input type="submit" value="Submit!" onClick={() => submitForm()}/>
       </form>
     </>
   );
