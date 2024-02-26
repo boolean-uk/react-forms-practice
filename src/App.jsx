@@ -4,6 +4,7 @@ import "./App.css";
 export default function App() {
   //TODO: Add your state fields here
 
+  /*
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -11,20 +12,69 @@ export default function App() {
   const [complaintMessage, setComplaintMessage] = useState("");
   const [contactOptions, setContactOptions] = useState("");
   const [consentToTermsCheck, setConsentToTermsCheck] = useState(false);
+*/
+
+  const [complaintFormData, setComplaintFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+    complaintMessage: "",
+    contactOptions: "",
+    consentToTermsCheck: false,
+  });
 
   function handleSubmit(event) {
     console.log(
-      `full name: ${fullName},
-      address: ${address},
-      phone number: ${phoneNumber},
-      email: ${email},
-      complaint message: ${complaintMessage},
-      contact option: ${contactOptions},
-      consent to term check: ${consentToTermsCheck}`
+      `full name: ${complaintFormData.fullName},
+      address: ${complaintFormData.address},
+      phone number: ${complaintFormData.phoneNumber},
+      email: ${complaintFormData.email},
+      complaint message: ${complaintFormData.complaintMessage},
+      contact option: ${complaintFormData.contactOptions},
+      consent to term check: ${complaintFormData.consentToTermsCheck}`
     );
     event.preventDefault();
   }
 
+  function handelInputData(event) {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+    const inputType = event.target.type;
+    const checked = event.target.checked;
+
+    if (inputName === "name") {
+      setComplaintFormData({ ...complaintFormData, fullName: inputValue });
+    }
+    if (inputName === "address") {
+      setComplaintFormData({ ...complaintFormData, address: inputValue });
+    }
+    if (inputName === "phone") {
+      setComplaintFormData({ ...complaintFormData, phoneNumber: inputValue });
+    }
+    if (inputName === "email") {
+      setComplaintFormData({ ...complaintFormData, email: inputValue });
+    }
+    if (inputName === "complaint") {
+      setComplaintFormData({
+        ...complaintFormData,
+        complaintMessage: inputValue,
+      });
+    }
+    if (inputName === "contact") {
+      setComplaintFormData({
+        ...complaintFormData,
+        contactOptions: inputValue,
+      });
+    }
+    if (inputName === "consent" && inputType === "checkbox") {
+      setComplaintFormData({
+        ...complaintFormData,
+        consentToTermsCheck: checked,
+      });
+    }
+  }
+  /*
   function handleFullNameInput(event) {
     setFullName(event.target.value);
   }
@@ -47,6 +97,7 @@ export default function App() {
   function handleConsentToTermsInput(event) {
     setConsentToTermsCheck(event.target.value);
   }
+  */
 
   return (
     <>
@@ -59,21 +110,21 @@ export default function App() {
               type="text"
               name="name"
               required
-              onChange={handleFullNameInput}
+              onChange={handelInputData}
             />
           </label>
           <label>
             Address
-            <input type="text" name="address" onChange={handleAddressInput} />
+            <input type="text" name="address" onChange={handelInputData} />
           </label>
           <label>
             Phone Number
-            <input type="tel" name="phone" onChange={handlePhoneNumberInput} />
+            <input type="tel" name="phone" onChange={handelInputData} />
           </label>
 
           <label>
             Email
-            <input type="email" name="email" onChange={handleEmailInput} />
+            <input type="email" name="email" onChange={handelInputData} />
           </label>
         </div>
 
@@ -84,7 +135,7 @@ export default function App() {
               name="complaint"
               rows="10"
               placeholder="You can complain here"
-              onChange={handleComplaintInput}
+              onChange={handelInputData}
             ></textarea>
           </label>
 
@@ -95,7 +146,7 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="phone"
-                onChange={handleContactOptionInput}
+                onChange={handelInputData}
               />
               Phone
             </label>
@@ -105,7 +156,7 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="email"
-                onChange={handleContactOptionInput}
+                onChange={handelInputData}
               />
               Email
             </label>
@@ -115,7 +166,7 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="post"
-                onChange={handleContactOptionInput}
+                onChange={handelInputData}
               />
               Slow Mail
             </label>
@@ -125,7 +176,7 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="none"
-                onChange={handleContactOptionInput}
+                onChange={handelInputData}
               />
               No contact!
             </label>
@@ -137,7 +188,8 @@ export default function App() {
               type="checkbox"
               name="consent"
               id="consent"
-              onChange={handleConsentToTermsInput}
+              onChange={handelInputData}
+              checked={complaintFormData.consentToTermsCheck}
             />
           </label>
         </div>
