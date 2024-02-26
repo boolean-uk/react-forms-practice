@@ -2,34 +2,51 @@ import { useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [number, setNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [complaint, setComplaint] = useState("");
-  const [contactMethod, setContactMethod] = useState("none");
-  const [consent, setConsent] = useState(false);
+  // const [name, setName] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [number, setNumber] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [complaint, setComplaint] = useState("");
+  // const [contactMethod, setContactMethod] = useState("none");
+  // const [consent, setConsent] = useState(false);
 
-  const handleNameChange = (event) => setName(event.target.value);
-  const handleAddressChange = (event) => setAddress(event.target.value);
-  const handleNumberChange = (event) => setNumber(event.target.value);
-  const handleEmailChange = (event) => setEmail(event.target.value);
-  const handleComplaintChange = (event) => setComplaint(event.target.value);
-  const handleContactChange = (event) => setContactMethod(event.target.value);
-  const handleConsentChange = (event) => setConsent(event.target.checked);
+  const initial_formdata = {
+    name: "",
+    address: "",
+    phone: "",
+    email: "",
+    complaint: "",
+    contact: "none",
+    consent: false,
+  };
+
+  const [formData, setFormData] = useState({ ...initial_formdata });
+  // const handleNameChange = (event) => setName(event.target.value);
+  // const handleAddressChange = (event) => setAddress(event.target.value);
+  // const handleNumberChange = (event) => setNumber(event.target.value);
+  // const handleEmailChange = (event) => setEmail(event.target.value);
+  // const handleComplaintChange = (event) => setComplaint(event.target.value);
+  // const handleContactChange = (event) => setContactMethod(event.target.value);
+  // const handleConsentChange = (event) => setConsent(event.target.checked);
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Name:", name);
-    console.log("Address:", address);
-    console.log("Phone Number:", number);
-    console.log("Email:", email);
-    console.log("Complaint:", complaint);
-    console.log("Contact Method:", contactMethod);
-    console.log("Consent:", consent);
+    // console.log("Name:", name);
+    // console.log("Address:", address);
+    // console.log("Phone Number:", number);
+    // console.log("Email:", email);
+    // console.log("Complaint:", complaint);
+    // console.log("Contact Method:", contactMethod);
+    // console.log("Consent:", consent);
+    console.log("Form Data", formData);
   };
-
-  //TODO: Add your state fields here
 
   return (
     <>
@@ -42,8 +59,8 @@ export default function App() {
               type="text"
               name="name"
               required
-              value={name}
-              onChange={handleNameChange}
+              value={formData.name}
+              onChange={handleChange}
             />
           </label>
           <label>
@@ -51,8 +68,8 @@ export default function App() {
             <input
               type="text"
               name="address"
-              value={address}
-              onChange={handleAddressChange}
+              value={formData.address}
+              onChange={handleChange}
             />
           </label>
           <label>
@@ -60,8 +77,8 @@ export default function App() {
             <input
               type="tel"
               name="phone"
-              value={number}
-              onChange={handleNumberChange}
+              value={formData.number}
+              onChange={handleChange}
             />
           </label>
 
@@ -70,8 +87,8 @@ export default function App() {
             <input
               type="email"
               name="email"
-              value={email}
-              onChange={handleEmailChange}
+              value={formData.email}
+              onChange={handleChange}
             />
           </label>
         </div>
@@ -83,8 +100,8 @@ export default function App() {
               name="complaint"
               rows="10"
               placeholder="You can complain here"
-              value={complaint}
-              onChange={handleComplaintChange}
+              value={formData.complaint}
+              onChange={handleChange}
             ></textarea>
           </label>
 
@@ -95,8 +112,8 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="phone"
-                checked={contactMethod === "phone"}
-                onChange={handleContactChange}
+                checked={formData.contact === "phone"}
+                onChange={handleChange}
               />
               Phone
             </label>
@@ -106,8 +123,8 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="email"
-                checked={contactMethod === "email"}
-                onChange={handleContactChange}
+                checked={formData.contact === "email"}
+                onChange={handleChange}
               />
               Email
             </label>
@@ -117,8 +134,8 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="post"
-                checked={contactMethod === "post"}
-                onChange={handleContactChange}
+                checked={formData.contact === "post"}
+                onChange={handleChange}
               />
               Slow Mail
             </label>
@@ -128,8 +145,8 @@ export default function App() {
                 type="radio"
                 name="contact"
                 value="none"
-                checked={contactMethod === "none"}
-                onChange={handleContactChange}
+                checked={formData.contact === "none"}
+                onChange={handleChange}
               />
               No contact!
             </label>
@@ -141,8 +158,8 @@ export default function App() {
               type="checkbox"
               name="consent"
               id="consent"
-              checked={consent}
-              onChange={handleConsentChange}
+              checked={formData.consent}
+              onChange={handleChange}
             />
           </label>
         </div>
