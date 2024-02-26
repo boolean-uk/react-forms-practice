@@ -33,7 +33,7 @@ export default function App() {
 
   return (
     <>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h2>Complaining form!</h2>
         <div className="form__section-left">
           <label>
@@ -146,7 +146,7 @@ export default function App() {
             />
           </label>
         </div>
-        <input type="submit" value="Submit!" onSubmit={handleSubmit} />
+        <input type="submit" value="Submit!" />
       </form>
     </>
   );
