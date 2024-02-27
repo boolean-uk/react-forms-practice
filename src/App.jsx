@@ -64,7 +64,8 @@ export default function App() {
     
     console.log("Form submitted:", formData);
   
-  
+    // Optionally, you can reset the form fields after submission
+    resetFormFields();
   }
   
   // Function to validate email format
@@ -74,7 +75,17 @@ export default function App() {
     return emailRegex.test(email);
   }
   
- 
+  // Function to reset form fields after submission
+  function resetFormFields() {
+    setFullName("");
+    setAddress("");
+    setPhoneNumber("");
+    setEmail("");
+    setComplaintMessage("");
+    setContactOptions("");
+    setConsentToTermsCheck(false);
+  }
+
 
 function handleInputData(event) {
   const inputName = event.target.name;
@@ -203,7 +214,7 @@ function handleInputData(event) {
           </label>
         </div>
         <input type="submit" value="Submit!" onClick={handleSubmit} />
-        
+        <input type="reset" value="  Reset" onClick={resetFormFields} />
       </form>
     </>
   );
